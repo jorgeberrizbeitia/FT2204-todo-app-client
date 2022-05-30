@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import { addNewTodoService } from "../services/todo.services";
 
 function AddForm(props) {
   const [title, setTitle] = useState("");
@@ -24,7 +25,8 @@ function AddForm(props) {
         isUrgent
       }
 
-      await axios.post("http://localhost:5005/api/todos", newTodo)
+      // await axios.post("http://localhost:5005/api/todos", newTodo)
+      await addNewTodoService(newTodo)
       // navigate("/todos") // estoy en la misma pagina. No refresco nada >:)
       props.getAllTodos()
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AddForm from "../components/AddForm";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { getAllTodosService } from "../services/todo.services";
 
 function TodoList() {
 
@@ -20,7 +20,9 @@ function TodoList() {
 
     try {
      
-      const response = await axios.get("http://localhost:5005/api/todos")
+      // const response = await axios.get("http://localhost:5005/api/todos")
+      const response = await getAllTodosService()
+
       setAllTodos(response.data)
 
     } catch (error) {
@@ -44,7 +46,8 @@ function TodoList() {
       {allTodos !== null && allTodos.map((eachTodo) => {
           return (
             <div key={eachTodo._id}>
-              <p>{eachTodo.title}</p>
+              {/* <p>{eachTodo.title}</p> */}
+              <Link to={`/todos/${eachTodo._id}/details`}>{eachTodo.title}</Link>
             </div>
           )
         })}
