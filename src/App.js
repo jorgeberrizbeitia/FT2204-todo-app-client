@@ -11,6 +11,8 @@ import NotFound from './pages/NotFound';
 
 // components
 import Navbar from "./components/Navbar"
+import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/Login";
 
 function App() {
   return (
@@ -22,6 +24,9 @@ function App() {
         <Route path="/todos" element={<TodoList />} />
         <Route path="/todos/:id/details" element={<TodoDetails />} />
         <Route path="/todos/:id/edit" element={<TodoEdit />} />
+
+        <Route path="/signup" element={ <Signup /> } />
+        <Route path="/login" element={ <Login /> } />
 
         {/* error FE routes */}
         <Route path="/error" element={<Error />} />
