@@ -14,6 +14,9 @@ import Navbar from "./components/Navbar"
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 
+// auth
+import IsPrivate from "./components/IsPrivate";
+
 function App() {
   return (
     <div className="App">
@@ -21,7 +24,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/todos" element={<TodoList />} />
+        <Route path="/todos" element={ <IsPrivate> <TodoList /> </IsPrivate>   } />
         <Route path="/todos/:id/details" element={<TodoDetails />} />
         <Route path="/todos/:id/edit" element={<TodoEdit />} />
 

@@ -9,7 +9,6 @@ function TodoList() {
   const [ allTodos, setAllTodos ] = useState(null)
 
   const navigate = useNavigate()
-
   // 2. ComponentDidMount
   useEffect(() => {
     getAllTodos()
@@ -26,7 +25,13 @@ function TodoList() {
       setAllTodos(response.data)
 
     } catch (error) {
-      navigate("/error")
+      if (error.response.status === 401) {
+        navigate("/login")
+        // esto seria una forma sencilla de enviar el usuario a login cuando no tiene token/token invalido
+        // pero hay una mejor => la mejor es con HOC IsPrivate
+      } else {
+        navigate("/error")
+      }
     }
   }
 

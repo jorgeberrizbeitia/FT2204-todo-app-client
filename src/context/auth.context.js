@@ -8,8 +8,10 @@ function AuthWrapper(props) {
   // todos los estados y funciones
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const authenticateUser = async () => {
+    setIsLoading(true)
     try {
       // donde llamaremos a esa ruta verify
       const response = await verifyService()
@@ -17,10 +19,12 @@ function AuthWrapper(props) {
       console.log("el payload es:", response.data)
       setIsLoggedIn(true)
       setUser(response.data)
+      setIsLoading(false)
     } catch (error) {
       console.log("El usuario no tiene token o el token no es valido")
       setIsLoggedIn(false)
       setUser(null)
+      setIsLoading(false)
     }
   }
 
@@ -34,6 +38,12 @@ function AuthWrapper(props) {
     authenticateUser()
   }, [])
 
+  // Espera mientras verificamos al usuario, antes de renderizar la app
+  if (isLoading === true) {
+    return <div className="App"><h3>Verificando Usuario</h3></div>
+  }
+
+  // esto es TODA nuestra app
   return (
     <AuthContext.Provider value={passedContext}>
       {props.children}
